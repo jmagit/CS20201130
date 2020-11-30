@@ -46,11 +46,13 @@ namespace Demos {
         }
         #endregion
 
+        #region Métodos
         public int getCount() { return count; }
         public void setCount(int value) { count = value; }
         public double Suma(double a, double b) {
             return a + b;
         }
+        #endregion
     }
     delegate int Dame();
     delegate double Operacion(double a, double b);
