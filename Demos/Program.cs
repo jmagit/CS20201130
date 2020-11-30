@@ -46,13 +46,13 @@ namespace Demos {
         }
         #endregion
 
+        #region Propiedades en Java
         public int getCount() { return count; }
         public void setCount(int value) { count = value; }
-        #region Métodos
+        #endregion
         public double Suma(double a, double b) {
             return a + b;
         }
-        #endregion
     }
     delegate int Dame();
     delegate double Operacion(double a, double b);
