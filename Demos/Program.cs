@@ -46,9 +46,9 @@ namespace Demos {
         }
         #endregion
 
-        #region Métodos
         public int getCount() { return count; }
         public void setCount(int value) { count = value; }
+        #region Métodos
         public double Suma(double a, double b) {
             return a + b;
         }
