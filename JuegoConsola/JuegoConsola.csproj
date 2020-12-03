@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6871A2D2-09BE-4243-8457-0A62FD6F077B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MiBiblioteca</RootNamespace>
-    <AssemblyName>MiBiblioteca</AssemblyName>
+    <ProjectGuid>{3C69EB1D-0927-4BBF-A8B1-82C03E463680}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>JuegoConsola</RootNamespace>
+    <AssemblyName>JuegoConsola</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,14 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Juegos\AdivinaElNumero.cs" />
-    <Compile Include="Juegos\Ahorcado.cs" />
-    <Compile Include="Juegos\Ajedrez.cs" />
-    <Compile Include="Juegos\IJuego.cs" />
-    <Compile Include="Juegos\JuegoBase.cs" />
-    <Compile Include="Juegos\JuegoException.cs" />
-    <Compile Include="OtraClase.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiBiblioteca\MiBiblioteca.csproj">
+      <Project>{6871a2d2-09be-4243-8457-0a62fd6f077b}</Project>
+      <Name>MiBiblioteca</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,7 +21,7 @@ namespace ViewNext.Cursos.Demos {
         }
     }
     enum Dias: short { Lunes = 1, Martes, Domingo = 0 }
-    class MiClase {
+    class MiClase: IDisposable {
         private int count;
         public otra.OtraClase Demo { get; set; }
 
@@ -67,6 +67,18 @@ namespace ViewNext.Cursos.Demos {
         #endregion
         public double Suma(double a, double b) {
             return Abs(a + b);
+        }
+
+        private bool isDispose = false;
+        public void Dispose() {
+            // Liberar
+            isDispose = true;
+        }
+
+        ~MiClase() {
+            if(!isDispose) {
+                Dispose();
+            }
         }
     }
     delegate int Dame();
@@ -125,6 +137,9 @@ namespace ViewNext.Cursos.Demos {
             else
                 cad = null;
 
+            if(cc is IDisposable) {
+                (cc as IDisposable).Dispose();
+            }
             cad = c?.Demo?.Nombre?.ToLower();
             var cad2 =(cad ?? "Vacio").ToLower();
             Console.ReadLine();

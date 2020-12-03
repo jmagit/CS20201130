@@ -51,10 +51,10 @@ namespace MiAplicacion {
                 return;
             }
             if (numero == objetivo) {
-                MessageBox.Show($"Acertaste en el {intento} intento.", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"Acertaste en el {intento} intento.", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 finalizado = true;
             } else if (intento++ == MAX_INTENTOS) { 
-                MessageBox.Show($"No lo conseguiste, mi número era el {objetivo}", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"No lo conseguiste, mi número era el {objetivo}", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 finalizado = true;
             } else {
                 PonTitulo();
@@ -69,8 +69,8 @@ namespace MiAplicacion {
         private void CambiaAOtra() {
             btnProbar.Text = "Otra";
             txtNumero.Enabled = false;
-            this.btnProbar.Click += new System.EventHandler(this.btnIniciar_Click);
             this.btnProbar.Click -= new System.EventHandler(this.btnProbar_Click);
+            this.btnProbar.Click += new System.EventHandler(this.btnIniciar_Click);
         }
 
         private void PonTitulo() {
@@ -82,5 +82,6 @@ namespace MiAplicacion {
             this.btnProbar.Click -= new System.EventHandler(this.btnIniciar_Click);
             this.btnProbar.Click += new System.EventHandler(this.btnProbar_Click);
         }
+       
     }
 }

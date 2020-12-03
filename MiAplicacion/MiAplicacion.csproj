@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmJuegoConClase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJuegoConClase.Designer.cs">
+      <DependentUpon>frmJuegoConClase.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmJuego.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmJuegoConClase.resx">
+      <DependentUpon>frmJuegoConClase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmJuego.resx">
       <DependentUpon>frmJuego.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiBiblioteca\MiBiblioteca.csproj">
+      <Project>{6871a2d2-09be-4243-8457-0a62fd6f077b}</Project>
+      <Name>MiBiblioteca</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,13 +15,22 @@ namespace MiAplicacion {
         }
 
         private void btnModal_Click(object sender, EventArgs e) {
-            var frm = new frmOtro();
-            //frm.Parent = this;
-            if (frm.ShowDialog() == DialogResult.OK) {
-                MessageBox.Show("Dice OK");
-            } else {
-                MessageBox.Show("Cancelado");
+            using (var frm = new frmOtro()) {
+                //frm.Parent = this;
+                if (frm.ShowDialog() == DialogResult.OK) {
+                    MessageBox.Show("Dice OK");
+                } else {
+                    MessageBox.Show("Cancelado");
+                }
             }
+            //using var frm = new frmOtro();
+            ////frm.Parent = this;
+            //if (frm.ShowDialog() == DialogResult.OK) {
+            //    MessageBox.Show("Dice OK");
+            //} else {
+            //    MessageBox.Show("Cancelado");
+            //}
+
         }
 
         private void btnModeless_Click(object sender, EventArgs e) {
@@ -30,7 +39,7 @@ namespace MiAplicacion {
             //MessageBox.Show("Continuo");
         }
         private void btnJugar_Click(object sender, EventArgs e) {
-            var frm = new frmJuego();
+            var frm = new frmJuegoConClase();
             frm.Show(this);
         }
 
