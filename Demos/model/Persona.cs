@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViewNext.Cursos.Demos {
+namespace ViewNext.Cursos.Demos.Model {
     class Persona {
     }
 }

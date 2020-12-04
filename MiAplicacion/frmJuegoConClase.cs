@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace MiAplicacion {
     public partial class frmJuegoConClase : Form {
-        IJuego juego = new AdivinaElNumero();
+        private readonly IJuego<JugadaGenerica> juego = new AdivinaElNumero();
 
         public frmJuegoConClase() {
             InitializeComponent();

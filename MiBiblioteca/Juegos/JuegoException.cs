@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace MiBiblioteca.Juegos {
     public class JuegoException : Exception {
-        public JuegoException() {
-        }
-
         public JuegoException(string message) : base(message) {
         }
 

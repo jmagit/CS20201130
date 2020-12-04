@@ -5,7 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MiBiblioteca.Juegos {
-    public class AdivinaElNumero : JuegoBase {
+    public class JugadaGenerica : IJugada {
+        public int Id { get; }
+        public string Jugada { get; }
+
+        public JugadaGenerica(int id, string jugada) {
+            Id = id;
+            Jugada = jugada;
+        }
+
+        public override string ToString() {
+            return $"{Id} {Jugada}";
+        }
+    }
+
+    public class AdivinaElNumero: JuegoBase<JugadaGenerica> {
         #region Constantes públicas
         public readonly int NUM_MIN = 1;
         public readonly int NUM_MAX = 100;
@@ -14,12 +28,16 @@ namespace MiBiblioteca.Juegos {
         #region Atributos
         private int objetivo;
         private int intento;
-
+        private readonly Random rnd = new Random();
         #endregion
         #region Propiedades
         public override string Petición {
             get {
+#if DEBUG
+                return $"Dame un número entre {NUM_MIN} y {NUM_MAX} ({intento} de {MAX_INTENTOS}) [{objetivo}]:";
+#else
                 return $"Dame un número entre {NUM_MIN} y {NUM_MAX} ({intento} de {MAX_INTENTOS}):";
+#endif
             }
         }
 
@@ -32,9 +50,10 @@ namespace MiBiblioteca.Juegos {
             Inicializa();
         }
         public override void Inicializa() {
-            objetivo = (new Random()).Next(NUM_MIN, NUM_MAX);
+            objetivo = rnd.Next(NUM_MIN, NUM_MAX);
             intento = 1;
             HaFinalizado = false;
+            Clear();
         }
 
         public override bool EsValido(string jugada) {
@@ -59,6 +78,7 @@ namespace MiBiblioteca.Juegos {
             if (EsInvalido(jugada))
                 throw new JuegoException(Resultado);
             int.TryParse(jugada, out int numero);
+            Add(new JugadaGenerica(Count + 1, jugada));
             if (numero == objetivo) {
                 Resultado = $"Acertaste en el {intento} intento.";
                 HaFinalizado = true;

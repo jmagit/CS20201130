@@ -6,12 +6,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewNext.Validadores;
 
 using static System.Math;
 
 namespace ViewNext.Cursos.Demos {
     delegate void Notificar(object sender, EventArgs ev);
 
+    
     struct Punto {
         public int X { get; set; }
         public int Y { get; set; }
@@ -112,6 +114,8 @@ namespace ViewNext.Cursos.Demos {
 #else
             Operacion calc = Divide;
 #endif
+            calc = delegate (double a, double b) { return a * b; };
+            calc = (a, b) => a * b;
             // ...
             var i = calc(2, 2) * 2;
             short corto = (short)i;
@@ -142,6 +146,12 @@ namespace ViewNext.Cursos.Demos {
             }
             cad = c?.Demo?.Nombre?.ToLower();
             var cad2 =(cad ?? "Vacio").ToLower();
+            if(ValidacionesCadenas.LongMax(cad, 15)) {
+
+            }
+            if(cad.LongMax(15)) {
+
+            }
             Console.ReadLine();
         }
     }

@@ -5,11 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MiBiblioteca.Juegos {
-    public class Ajedrez : JuegoBase {
-        enum Turno {
-            Blancas,
-            Negras
+    public enum Turno {
+        Blancas,
+        Negras
+    }
+
+    public class JugadaAjedrez : IJugada {
+        public int Id { get; }
+        public string Jugada { get; }
+        public Turno Turno { get; }
+        public JugadaAjedrez(int id, Turno turno, string jugada) {
+            Id = id;
+            Turno = turno;
+            Jugada = jugada;
         }
+
+        public override string ToString() {
+            return $"{Id} {Enum.GetName(typeof(Turno), Turno)} {Jugada}";
+        }
+    }
+    public class Ajedrez : JuegoBase<JugadaAjedrez> {
 
         Turno turno = Turno.Blancas;
         int fake = 10;
@@ -26,13 +41,14 @@ namespace MiBiblioteca.Juegos {
         }
 
         public override void Jugar(string jugada) {
-            if(--fake == 0 || jugada?.ToUpper() == "FIN") {
+            Add(new JugadaAjedrez(Count + 1, turno, jugada));
+            if (--fake == 0 || jugada?.ToUpper() == "FIN") {
                 HaFinalizado = true;
                 OnNotification(new NotificacionEventArgs { Mensaje = "Partida finalizada en tablas." });
                 OnFinalizado();
-            } else if(jugada?.ToUpper() == "JAQUE MATE") {
-                 HaFinalizado = true;
-               OnNotification(new NotificacionEventArgs { Mensaje = $"Ganan las {turno}." });
+            } else if (jugada?.ToUpper() == "JAQUE MATE") {
+                HaFinalizado = true;
+                OnNotification(new NotificacionEventArgs { Mensaje = $"Ganan las {turno}." });
                 OnFinalizado();
 
             } else {
