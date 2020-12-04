@@ -207,7 +207,27 @@ namespace ViewNext.Cursos.Demos {
                                select a;
 
             string s1 = "Uno";
-            string s2 = "Uno";
+            string s2 = "Otro";
+
+            (s1, s2) = (s2, s1);
+
+            srv.get("...", () => {
+                // ... (1)
+                srv.otra(1, () => {
+                    // ... (2)
+                    srv.mas(1, () => {
+                        // ... (fin)
+                    });
+                });
+            });
+
+            await rv.get("...");
+            // ... (1)
+            await srv.otra(1);
+            // ... (2)
+            await srv.mas(1);
+            // ... (fin)
+
 
             Console.ReadLine();
         }
