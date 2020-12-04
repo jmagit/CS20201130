@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MiBiblioteca.Juegos {
-    public class JugadaGenerica : IJugada {
+    public class JugadaGenerica : IJugada, ICloneable {
         public int Id { get; }
-        public string Jugada { get; }
+        public string Jugada { get; set; }
 
         public JugadaGenerica(int id, string jugada) {
             Id = id;
@@ -16,6 +16,10 @@ namespace MiBiblioteca.Juegos {
 
         public override string ToString() {
             return $"{Id} {Jugada}";
+        }
+
+        public object Clone() {
+            return this.MemberwiseClone();
         }
     }
 

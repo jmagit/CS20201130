@@ -1,4 +1,4 @@
-﻿using otra=ViewNext.Cursos.MiBiblioteca;
+﻿using otra = ViewNext.Cursos.MiBiblioteca;
 using ViewNext.Cursos.Core;
 using System;
 using System.Collections.Generic;
@@ -13,20 +13,35 @@ using static System.Math;
 namespace ViewNext.Cursos.Demos {
     delegate void Notificar(object sender, EventArgs ev);
 
-    
-    struct Punto {
+
+    public class Punto {
         public int X { get; set; }
         public int Y { get; set; }
         public Punto(int x, int y) {
             X = x;
             Y = y;
         }
+
+        public static Punto operator +(Punto p1, Punto p2) {
+            return new Punto(p1.X + p2.X, p1.Y + p2.Y);
+        }
+        public static Punto operator +(Punto p1, int delta) {
+            p1.X += delta;
+            p1.Y += delta;
+            return p1;
+        }
+        public static Punto operator +(int delta, Punto p1) {
+            p1.X += delta;
+            p1.Y += delta;
+            return p1;
+        }
     }
-    enum Dias: short { Lunes = 1, Martes, Domingo = 0 }
-    class MiClase: IDisposable {
+    enum Dias : short { Lunes = 1, Martes, Domingo = 0 }
+
+    class MiClase : IDisposable {
         private int count;
         public otra.OtraClase Demo { get; set; }
-
+        public string Nombre { get; set; }
         public Notificar onChange { get; set; }
 
         #region Propiedades
@@ -78,7 +93,7 @@ namespace ViewNext.Cursos.Demos {
         }
 
         ~MiClase() {
-            if(!isDispose) {
+            if (!isDispose) {
                 Dispose();
             }
         }
@@ -98,13 +113,29 @@ namespace ViewNext.Cursos.Demos {
             Console.WriteLine(@"c:\nada\otro\dir");
             Console.WriteLine($"El valor es {((MiClase)sender).Valor + 1} unidades");
         }
+        public static void parametros(MiClase r, ref int edad) {
+            r.Nombre = "Don Jose";
+            edad = 88;
+
+        }
         static void Main(string[] args) {
             var c = new MiClase();
             OtraClase cc = new OtraClase();
             Dame fn = c.getCount;
             Dias d = Dias.Lunes;
             var nombres = Enum.GetNames(typeof(Dias));
-            Punto p1, p2 = new Punto(1,3);
+            Punto p1, p2 = new Punto(1, 3);
+            p1 = new Punto(2, 3);
+            Punto p3 = p1 + (p2 + 2);
+
+            Persona p;
+            c.Nombre = "Don Pepito";
+            int años = 9;
+            var aux = c;
+
+            parametros(c, ref años);
+            Console.WriteLine("Hola " + c.Nombre + " tienes " + años);
+            var resl = c == aux;
 
             p1 = p2;
             p2.X = 3;
@@ -141,17 +172,43 @@ namespace ViewNext.Cursos.Demos {
             else
                 cad = null;
 
-            if(cc is IDisposable) {
+            if (cc is IDisposable) {
                 (cc as IDisposable).Dispose();
             }
             cad = c?.Demo?.Nombre?.ToLower();
-            var cad2 =(cad ?? "Vacio").ToLower();
-            if(ValidacionesCadenas.LongMax(cad, 15)) {
+            var cad2 = (cad ?? "Vacio").ToLower();
+            if (ValidacionesCadenas.LongMax(cad, 15)) {
 
             }
-            if(cad.LongMax(15)) {
+            if (cad.LongMax(15)) {
 
             }
+
+            List<Alumno> alumnos = new List<Alumno>();
+            // ...
+            bool paginar = true;
+            int numPag = 7, filas = 10;
+            var consulta = alumnos
+                .Where(a => a.Nombre.StartsWith("P") && a.Direcciones.Any(x => x.Calle.StartsWith(@"C\")));
+            if (paginar)
+                consulta = consulta.Skip(numPag * filas).Take(filas);
+            consulta = consulta.OrderBy(a => a.Apellidos);
+            // ..
+            var alm = consulta.Select(a => new { nom = a.Nombre, a.Apellidos }).ToList();
+            var uno = consulta.Select(a => new { nom = a.Nombre, a.Apellidos })
+                .FirstOrDefault(a => a.nom != null);
+
+            var numDir = consulta.Select(a => a.Direcciones.Count).Sum();
+            numDir = consulta.Sum(a => a.Direcciones.Count);
+
+            var otraConsulta = from a in alumnos
+                               where a.Apellidos == "Garcia"
+                               orderby a.Nombre
+                               select a;
+
+            string s1 = "Uno";
+            string s2 = "Uno";
+
             Console.ReadLine();
         }
     }

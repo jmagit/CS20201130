@@ -45,7 +45,10 @@ namespace MiBiblioteca.Juegos {
         public T this[int index] {
             get {
                 if (0 < index && index <= Count)
-                    return partida[index - 1];
+                    if (partida[index - 1] is ICloneable)
+                        return (T)(partida[index - 1] as ICloneable).Clone();
+                    else
+                        return partida[index - 1];
                 throw new IndexOutOfRangeException();
             }
         }
